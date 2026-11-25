@@ -1,0 +1,20 @@
+# Valeurs du chart istio/gateway (TP2, 5.3).
+# Traefik occupe déjà 80 et 443 via ServiceLB : on expose Istio sur 8080 (HTTP) et 5000 (RTMP).
+# 5000 plutôt que 1935 : depuis l'extérieur, 1935 est filtré avant d'atteindre la VM.
+service:
+  type: LoadBalancer
+  ports:
+  - name: status-port
+    port: 15021
+    targetPort: 15021
+  - name: http
+    port: 8080
+    targetPort: 8080
+  - name: rtmp
+    port: 5000
+    targetPort: 5000
+# Réservation réduite pour des VM à 4 Go de RAM (défaut du chart : 100m / 128Mi)
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi

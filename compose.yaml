@@ -1,0 +1,12 @@
+# Échauffement du TP1 (section 4.0). Sur k3s-server, le port 80 est pris par Traefik :
+# on publie donc sur 8081 (HTTP) et 1936 (RTMP).
+# REGISTRY vaut par défaut ghcr.io/samir-medjiah-laas ; remplacez-le par le registre indiqué par les enseignants.
+services:
+  gateway:
+    image: ${REGISTRY:-ghcr.io/samir-medjiah-laas}/dais-gateway:1.0
+    ports: ['8081:80', '1936:1935']
+    depends_on: [server, web]
+  server:
+    image: ${REGISTRY:-ghcr.io/samir-medjiah-laas}/dais-server:1.0
+  web:
+    image: ${REGISTRY:-ghcr.io/samir-medjiah-laas}/dais-web:v1

@@ -1,0 +1,14 @@
+# Valeurs du chart istio/istiod (TP2, 5.1), pour des VM à 4 Go de RAM.
+# Par défaut, istiod réserve 500m de CPU et 2 Gi de mémoire : le Pod resterait en Pending.
+# helm install istiod istio/istiod -n istio-system --version 1.31.4 -f istio/istiod-values.yaml --wait
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+global:
+  proxy:
+    # Réservation de chaque sidecar istio-proxy (défaut : 100m / 128Mi)
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
